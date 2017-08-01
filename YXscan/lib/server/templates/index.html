@@ -1,0 +1,11 @@
+<!doctype html>
+<title>主页</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class=page>
+  <h1>CMS利用工具</h1>
+  <div class=metanav>
+    <a href="{{ url_for('scan') }}">Scan</a>
+    <a href="{{ url_for('exp') }}">exp</a>
+  </div>
+  {% block body %}{% endblock %}
+</div>

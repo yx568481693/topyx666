@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+{% block body %}
+  <h2>Test</h2>
+  <form action='/scan' method=post>
+    <dl>
+      <dt>hosts:
+      <dd><input type=text size=30 name=hosts></dd>
+      </dt>
+      <dt>thread:
+      <dd><input type=text rows=5 cols=5 name=thread></dd>
+    </dt>
+      <dd><input type=submit value=scan></dd>
+      <dd>
+        {% if result != Null%}
+          <dt>  {{ result }} </dt>
+        {% else %}
+          <dt>  12 </dt>
+        {% endif %}
+      </dd>
+    </dl>
+  </form>
+{% endblock %}

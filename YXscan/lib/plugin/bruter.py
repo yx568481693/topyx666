@@ -10,15 +10,21 @@ import requests
 import argparse
 
 class CMS_rec():
-    def __init__(self, scanSite, threadNum):
-        self.hosts = scanSite
-        self.threads = threadNum
+    def __init__(self):
+        self.hosts = None
+        self.threads = None
         #self.scan_result = None
         self.Threadlist = []
         self.queue = Queue.Queue()
         self.flag = 0
         self.scan_result = {}
         self.status = {}
+
+
+    def Int(self, hosts, threads):
+        self.hosts = hosts
+        self.threads = threads
+
 
     def load(self):
         if self.hosts.endswith('/'):
@@ -28,7 +34,7 @@ class CMS_rec():
         else:
             self.hosts = 'http://'+self.hosts
 
-        f = open(os.path.join(os.path.dirname(__file__),'/home/nanke/桌面/YXscan/dic/cmsdict.txt'))
+        f = open('/home/nanke/桌面/YXscan/dic/cmsdict.txt')
         cms = f.readlines()
         for line in cms:
             if len(line.strip())==0 or line.startswith('#'):
@@ -66,7 +72,7 @@ class CMS_rec():
             if pattern.upper() in html.text.upper() and html.status_code == 200:
                 #print "You know"
                 #print {'Scan Result':cmsname.strip('\n').strip('\r'),'matched url':url,'matching rule':pattern.decode('utf-8')}
-                self.scan_result = {'Scan Result':cmsname.strip('\n').strip('\r'),'matched url':url,'matching rule':pattern}
+                self.scan_result = {'Scan Result':cmsname.strip('\n').strip('\r'),'matched url':hosts+url,'matching rule':pattern}
                 self.flag = 1
 
     def result(self):

@@ -20,10 +20,9 @@ def index():
 @cmsserver.route('/scan', methods=['GET', 'POST'])
 def scan():
     if request.method == 'POST':
-        arg_ip = request.form.get('hosts', type=str, default=None)
-        arg_thread = request.form.get('thread', type=int, default=None)
-        print arg_ip
-        CMSscan.Int(arg_ip,arg_thread)
+        scan_ip = request.form.get('hosts', type=str, default=None)
+        scan_thread = request.form.get('thread', type=int, default=None)
+        CMSscan.Int(scan_ip,scan_thread)
 #        print "ssss"
         CMSscan.run()
         result = CMSscan.result()
@@ -33,16 +32,15 @@ def scan():
 #    return redirect(url_for('result.html))
 
 #@cmsserver.route('/result/<>')
-@cmsserver.route('/exp')
+@cmsserver.route('/exp', methods=['GET', 'POST'])
 def exp():
     if request.method == 'POST':
-        arg_ip = request.form.get('hosts', type=str, default=None)
-        arg_thread = request.form.get('threads', type=int, default=None)
-        arg_exp = request.form.get('exp', type=str, default=None)
-        print arg_exp
-        CMSexp.Int(arg_ip, arg_thread)
-        CMSexp.readpoc(arg_exp)
-        CMSexp.run()
+        exp_ip = request.form.get('exp_hosts', type=str, default=None)
+        exp_thread = request.form.get('exp_threads', type=int, default=None)
+        exp_exp = request.form.get('exp', type=str, default=None)
+        print exp_thread
+        CMSexp.Int(exp_ip, exp_thread)
+        CMSexp.run(exp_exp)
         exp_result = CMSexp.result()
         return render_template('exp.html', tools=tools, result=exp_result)
     elif request.method == 'GET':

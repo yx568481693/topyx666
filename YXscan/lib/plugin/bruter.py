@@ -66,13 +66,13 @@ class CMS_rec():
             url,pattern,cmsname = data.split('------')
             try:
                 print self.hosts+url
-                html = requests.get(self.hosts+url,timeout = 5)
+                html = requests.get(self.hosts + url,timeout = 5)
             except:
                 continue
             if pattern.upper() in html.text.upper() and html.status_code == 200:
                 #print "You know"
                 #print {'Scan Result':cmsname.strip('\n').strip('\r'),'matched url':url,'matching rule':pattern.decode('utf-8')}
-                self.scan_result = {'Scan Result':cmsname.strip('\n').strip('\r'),'matched url':hosts+url,'matching rule':pattern}
+                self.scan_result = {'Scan Result':cmsname.strip('\n').strip('\r'),'matched url':self.hosts+url,'matching rule':pattern}
                 self.flag = 1
 
     def result(self):

@@ -1,16 +1,35 @@
-from read import list1
+#	-*-	coding:	utf-8	-*-
+#from read import list1
+import os
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 import urllib2
 import requests
 import threading
 import Queue
 
 class CMS_exp():
-    def __init__():
-        self.hosts = scanSite
-        self.threads = threadNum
+    def __init__(self):
+        self.hosts = None
+        self.threads = None
+        self.list1 =[]
+        self.Threadlist = []
         self.queue = Queue.Queue()
-        self.flag = 0
-        self.result = {}
+        self.result = []
+        self.status = {}
+
+    def readpoc(self, urlpath):
+        path = '/home/nanke/桌面/YXscan/exp/' + urlpath
+        with open(path) as f:
+            poc = f.readline()
+            while poc:
+                self.list1.append(poc)
+                poc = f.readline()
+
+    def Int(self, hosts, threads):
+        self.hosts = hosts
+        self.threads = threads
 
     def load(self):
         if self.hosts.endswith('/'):
@@ -20,9 +39,9 @@ class CMS_exp():
         else:
             self.hosts = 'http://'+self.hosts
 
-        while list1:
-            line = list1.pop()
-            self.queue.put(list1.pop())
+        while self.list1:
+            line = self.list1.pop()
+            self.queue.put(self.list1.pop())
         self.start_thread()
 
     def start_thread(self):
@@ -36,20 +55,19 @@ class CMS_exp():
 
     def start_scan(self):
         while True:
-            if self.flag = 0
+            try:
+                poc = self.queue.get(block=True,timeout=1)
+            except:
                 break
-        try:
-            poc = self.queue.get(block=True,timeout=1)
-        except:
-            break
-        try:
-            html = requests.get(self.hosts+url,timeout=5)
-        except:
-            continue
-        if html.status_code = 200:
-            print "Result:"
-            print self.hosts+poc
-            self.flag = 1
+            try:
+                html = requests.get(self.hosts+url,timeout=5)
+            except:
+                continue
+            if html.status_code == 200:
+                print "Result:"
+                print self.hosts + poc
+                f = self.host + poc
+                self.result.append(f)
 
     def result(self):
         if self.hosts is not None and self.threads is not None:
@@ -57,7 +75,7 @@ class CMS_exp():
 
     def run(self):
         if type(self.status) == dict:
-        self.load()
+            self.load()
 
     def ststus(slef):
         return {"hosts": self.hosts, "threads": self.threads}
